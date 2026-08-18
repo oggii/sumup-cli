@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.env
+.env.local
+*.har
+captures/
+out/
+.session-cookie.txt
+.storage-state.json
+.playwright-profile/
+.tmp/
+.check/
+browser-profile/

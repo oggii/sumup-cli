@@ -1,0 +1,59 @@
+{
+  "name": "sumup-cli",
+  "version": "0.1.0",
+  "description": "Unofficial CLI and MCP server for SumUp: catalogue, stock, sales, payouts and bulk product edits",
+  "license": "MIT",
+  "author": "oggii",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oggii/sumup-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oggii/sumup-cli/issues"
+  },
+  "homepage": "https://github.com/oggii/sumup-cli#readme",
+  "keywords": [
+    "sumup",
+    "pos",
+    "cli",
+    "mcp",
+    "inventory",
+    "catalogue",
+    "csv",
+    "switzerland",
+    "point-of-sale"
+  ],
+  "type": "module",
+  "bin": {
+    "sumup": "./dist/cli/index.js"
+  },
+  "files": [
+    "dist",
+    "src",
+    "docs",
+    "README.md",
+    "README.de.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli/index.ts",
+    "mcp": "tsx src/mcp/server.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "playwright-core": "^1.62.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
