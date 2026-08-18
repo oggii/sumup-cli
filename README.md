@@ -57,7 +57,8 @@ last observed working.
   export` joins them on `variant_id`.
 - **Stock goes negative.** SumUp lets a count fall below zero, which just means
   sales were rung up past an empty shelf. Treat it as data, not as an error.
-- **Rows are per variant, not per item.** 646 items produce 670 rows.
+- **Rows are per variant, not per item.** An item with two variants becomes
+  two rows, so the row count is always at least the item count.
 
 ## Setup
 
@@ -110,7 +111,7 @@ sumup auth login --api-key sup_sk_xxxxx
 sumup auth status                       # credentials, session expiry, endpoint health
 
 # Catalog (session only, no API key needed)
-sumup catalog export -f csv -o out/inventar.csv    # 670 rows, price/cost/margin/stock
+sumup catalog export -f csv -o out/inventar.csv    # one row per variant, price/cost/margin/stock
 sumup catalog export -f csv --all-columns
 sumup catalog native-export -o out/sumup.csv       # SumUp's own 47-column CSV
 sumup catalog validate out/sumup.csv               # check an edited file before import
@@ -206,7 +207,7 @@ Use the CSV round trip. It is SumUp's own bulk-edit mechanism, so it needs no
 reverse-engineered write endpoint:
 
 ```bash
-sumup catalog native-export -o out/sumup.csv   # 47 columns, 687 variant rows
+sumup catalog native-export -o out/sumup.csv   # 47 columns, one row per variant
 # edit prices, cost prices, SKUs, stock, categories in Excel or a script
 sumup catalog validate out/sumup.csv           # catch problems before SumUp does
 ```
@@ -292,7 +293,7 @@ change back from the live catalogue, and importing the original value again.
 The direct per-item write API is still **not** enabled. The read endpoints were
 mapped from real traffic, but the write shape was never captured, and both the
 CLI and the MCP tool refuse rather than firing a guessed `PUT` at a live
-646-item catalog.
+live catalogue.
 
 To enable direct writes, save one product in the dashboard while capturing
 traffic, then run `sumup discover` on the capture and fill in

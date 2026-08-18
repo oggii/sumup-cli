@@ -61,7 +61,9 @@ erfolgreichen Beobachtung festhält.
 - **Bestände werden negativ.** SumUp lässt den Zähler unter null fallen, was
   schlicht heisst, dass über ein leeres Regal hinaus kassiert wurde. Das sind
   Daten, kein Fehler.
-- **Eine Zeile je Variante, nicht je Artikel.** 646 Artikel ergeben 670 Zeilen.
+- **Eine Zeile je Variante, nicht je Artikel.** Ein Artikel mit zwei Varianten
+  wird zu zwei Zeilen, die Zeilenzahl liegt also immer mindestens bei der
+  Artikelzahl.
 
 ## Einrichtung
 
@@ -116,7 +118,7 @@ sumup auth login --api-key sup_sk_xxxxx
 sumup auth status                       # Zugangsdaten, Ablauf, Zustand der Endpunkte
 
 # Katalog (nur Session, kein API-Schlüssel nötig)
-sumup catalog export -f csv -o out/inventar.csv    # 670 Zeilen, Preis/Kosten/Marge/Bestand
+sumup catalog export -f csv -o out/inventar.csv    # eine Zeile je Variante, Preis/Kosten/Marge/Bestand
 sumup catalog export -f csv --all-columns
 sumup catalog native-export -o out/sumup.csv       # SumUps eigene 47-Spalten-CSV
 sumup catalog validate out/sumup.csv               # bearbeitete Datei vor dem Import prüfen
@@ -309,8 +311,7 @@ importiert.
 Die direkte Schreib-API je Artikel ist weiterhin **nicht** freigeschaltet. Die
 Lese-Endpunkte wurden aus echtem Verkehr gemappt, die Form eines Schreibaufrufs
 aber nie aufgezeichnet, und sowohl die CLI als auch das MCP-Werkzeug verweigern
-den Dienst, statt ein geratenes `PUT` auf einen Katalog mit 646 Artikeln
-loszulassen.
+den Dienst, statt ein geratenes `PUT` auf einen Live-Katalog loszulassen.
 
 Wer direkte Schreibzugriffe will, speichert im Dashboard einen Artikel, während
 der Verkehr aufgezeichnet wird, lässt `sumup discover` darüber laufen und trägt
